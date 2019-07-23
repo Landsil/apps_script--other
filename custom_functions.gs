@@ -110,3 +110,19 @@ function SHA512(input_string) {
   }
   return hexstr;
 }
+
+
+/**
+ * Function to calculate percent change
+ *
+ * @param {number} oldVal Original Value
+ * @param {number} newVal New Value
+ * @return The percent change between new and old values.
+ * @customfunction
+ *
+ */
+function percentChange(oldVal, newVal) {
+  
+  return (newVal - oldVal) / oldVal; 
+  
+}
