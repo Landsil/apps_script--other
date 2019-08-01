@@ -121,8 +121,80 @@ function SHA512(input_string) {
  * @customfunction
  *
  */
-function percentChange(oldVal, newVal) {
+function PercentChange(oldVal, newVal) {
   
   return (newVal - oldVal) / oldVal; 
   
 }
+
+// Indentation function
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+function moveText(direction) {
+  var values = ss.getActiveRange().getValues();
+  var cols = ss.getActiveRange().getNumColumns();
+  var rows = ss.getActiveRange().getNumRows();
+
+  var newValues = new Array();
+
+  for (x = 1; x <= rows; x++) {
+    for (y = 1; y <= cols; y++) {
+      var cell = ss.getActiveRange().getCell(x, y);
+      var value = cell.getValue();
+      var formula = function() {
+        if (direction == ">>>>>") {
+          return  '=CONCAT(REPT( CHAR( 160 ), 5),"' + value + '")';
+        } else if (direction == "<<<<<") {
+          return '=IF(TRIM(LEFT("' + value + '", 5))=CONCAT(REPT( CHAR( 160 ), 5),""), MID("' + value + '", 6, LEN("' + value + '")), TRIM("' + value + '"))';
+        } else if (direction == '>') {
+          return '=CONCAT(REPT( CHAR( 160 ), 1),"' + value + '")';
+        } else if (direction == '<') {
+          return '=IF(TRIM(LEFT("' + value + '", 1))=CONCAT(REPT( CHAR( 160 ), 1),""), MID("' + value + '", 2, LEN("' + value + '")), TRIM("' + value + '"))';
+        } 
+      }
+          Logger.log(formula);
+      
+      if (value != '') {
+        cell.setFormula([formula()]);
+        cell.setValue(cell.getValue());
+      } else {
+        cell.setValue(['']);
+      }
+    }
+  }
+};
+
+function indentText1() {
+  moveText(">");
+};
+
+function flushLeft1() {
+  moveText("<");
+};
+
+function indentText5() {
+  moveText(">>>>>");
+};
+
+function flushLeft5() {
+  moveText("<<<<<");
+};
+
+function onOpen() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  var entries = [{
+    name : ">",
+    functionName : "indentText1"
+  },{
+    name : ">>>>>",
+    functionName : "indentText5"
+  },{
+    name : "<<<<<",
+    functionName : "flushLeft5"
+  },{
+    name : "<",
+    functionName : "flushLeft1"
+  }];
+  sheet.addMenu("Indent Text", entries);
+};
