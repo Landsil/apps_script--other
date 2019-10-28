@@ -6,7 +6,7 @@ function onOpen() {
     functionName : 'downloadUsers'
   }];
   sheet.addMenu('Download', entries);
-};
+}
 
 
 /**
@@ -20,7 +20,7 @@ function downloadUsers() {
     customer: 'my_customer',
     maxResults: 500,
     orderBy: 'email'
-  };
+  }
 
 // Assemble data
   var response = AdminDirectory.Users.list(optionalArgs);
@@ -56,7 +56,7 @@ function downloadUsers() {
     //debug >> Full answer
    //  AUTO_users.getRange(lastRow + i, 10).setValue(params);
 
-  };
+  }
   
 // This actually posts data when it's ready.
 SpreadsheetApp.flush();
