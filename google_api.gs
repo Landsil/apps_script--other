@@ -11,6 +11,7 @@ function onOpen() {
 
 /**
  * Lists users in a G Suite domain.
+ * Create a spreedsheet, name one sheer "AUTO_users" enable API's as needed.
  */
  
 // Pulls data from G Suite
