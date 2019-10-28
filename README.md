@@ -6,3 +6,6 @@ https://github.com/Landsil/apps_script/blob/master/custom_functions.gs
 
 Web app that will recive POST, ingest JSON and post data to sheet
 https://github.com/Landsil/apps_script/blob/master/ingest_JSON_post.gs
+
+Diffrent G Suite things with API.
+https://github.com/Landsil/apps_script/blob/master/google_api.gs
