@@ -1,4 +1,4 @@
-// Menu options
+// Add menu to sheet
 function onOpen() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   var entries = [{
@@ -10,7 +10,7 @@ function onOpen() {
 
 
 /**
- * Lists users in a G Suite domain.
+ * Lists users in a G Suite domain. ( this version is valid up to 500 )
  * Create a spreedsheet, name one sheer "AUTO_users" enable API's as needed.
  */
  
@@ -18,7 +18,7 @@ function onOpen() {
 function downloadUsers() {
     var optionalArgs = {
     customer: 'my_customer',
-    maxResults: 10,
+    maxResults: 500,
     orderBy: 'email'
   };
 
