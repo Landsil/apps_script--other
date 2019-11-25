@@ -1,4 +1,4 @@
-// Add menu to sheet so you can use it from Sheet without having to open script editor every time.
+// Menu options
 function onOpen() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   var entries = [{
@@ -15,18 +15,18 @@ function onOpen() {
  * You will have to go to: Resources >> Advanced Google Services >> Admin Directory API - enable 
  */
  
-// This but actually pulls data from G Suite
+// Pulls data from G Suite
 function downloadUsers() {
     var optionalArgs = {
     customer: 'my_customer',
-    maxResults: 500,  // Actuall max
+    maxResults: 500, //API limit of 500 TODO: update script to pull data thru paging (100 per page)
     orderBy: 'email'
-  }
+  };
 
 // Assemble data
-// Ths will actually read responce and organise it to redable form.
+// Ths will read responce and organise it to redable form.
   var response = AdminDirectory.Users.list(optionalArgs);
-  console.log(response)
+  console.log(response);
   var params = JSON.stringify(response.users);
   var data = JSON.parse(params);
   
@@ -58,11 +58,12 @@ function downloadUsers() {
     
     AUTO_users.getRange(lastRow + i, 8).setValue(data[i].lastLoginTime);
     
-    //debug >> Full responce from google.
+    //debug >> Full answer
    //  AUTO_users.getRange(lastRow + i, 10).setValue(params);
 
   }
   
 // This actually posts data when it's ready.
+  AUTO_users.sort(1);
 SpreadsheetApp.flush();
 }
