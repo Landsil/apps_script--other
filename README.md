@@ -1,12 +1,29 @@
-# apps_script
-Bunch of simple, useful example scripts for Google Apps
+# apps script
+Those are relatively simple ready to use scripts that everyone can use just by copy pasting to google sheets apps script.
+Most will have full comments explaining code blocks and prerequisites.
 
-Custom Functions for Google Sheets
-https://github.com/Landsil/apps_script/blob/master/custom_functions.gs
+Most assume basic knowledge about Apps Script
 
-Web app that will recive POST, ingest JSON and post data to sheet
-https://github.com/Landsil/apps_script/blob/master/ingest_JSON_post.gs
+#### [Custom Functions for Google Sheets](https://github.com/Landsil/apps_script/blob/master/custom_functions.gs)
+ - Adds custom menu to sheets `OnOpen`
+ - Add different SHA function with instructions and description
+ - Indentation function
 
-Diffrent G Suite things with API.
-Starting with downloading user data into a sheet.
-https://github.com/Landsil/apps_script/blob/master/google_api.gs
+#### [Web app that will receive POST, ingest JSON and post data to sheet.](https://github.com/Landsil/apps_script/blob/master/ingest_JSON_post.gs)
+ - Public Web App
+ - Receive Webhook stream
+ - Simple JSON manipulation
+ - Find first empty row and add data to correct cells
+
+#### [Different G Suite things with google API](https://github.com/Landsil/apps_script/blob/master/google_api.gs)
+ - Starting with downloading user data into a sheet.
+ - Adds menu `onOpen`
+ - Get user data thru directory API
+ - Read JSON
+ - Look thru data and post to sheets in row
+
+#### [Pull employee data from peopleHR](https://github.com/Landsil/apps_script/blob/master/download_PeopleHR.gs)
+ - Adds menu `onOpen`
+ - `PropertiesService` to access token there
+ - Parse JSON
+ - Loop thru data and post in rows
