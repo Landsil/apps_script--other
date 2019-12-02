@@ -16,11 +16,15 @@ Most assume basic knowledge about Apps Script
  - Find first empty row and add data to correct cells
 
 #### [Different G Suite things with google API](https://github.com/Landsil/apps_script/blob/master/google_api.gs)
- - Starting with downloading user data into a sheet.
  - Adds menu `onOpen`
- - Get user data thru directory API
+##### Get user data thru Admin directory API
+ - Get user data thru admin directory API
  - Read JSON
- - Look thru data and post to sheets in row
+ - Look thru data and post to sheets in rows
+##### Get list of groups thru directory API
+ - Get ulist of groups thru admin directory API
+ - Loop thru pages
+ - Look thru data and post to sheets in rows
 
 #### [Pull employee data from peopleHR](https://github.com/Landsil/apps_script/blob/master/download_PeopleHR.gs)
  - Adds menu `onOpen`
