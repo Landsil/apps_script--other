@@ -11,8 +11,7 @@ function onOpen() {
   }
                 ];
   sheet.addMenu('Download', entries);
-};
-
+}
 
 /**
  * Lists users in a G Suite domain.
@@ -22,20 +21,9 @@ function onOpen() {
  
 // Pulls data from G Suite
 function downloadUsers() {
-    var optionalArgs = {
-    customer: 'my_customer',
-    maxResults: 500,
-    orderBy: 'email'
-  };
+  var pageToken;
+  var page;
   
-  // TODO: add paging per 100 users, https://developers.google.com/apps-script/advanced/admin-sdk-directory
-
-// Assemble data
-  var response = AdminDirectory.Users.list(optionalArgs);
-  var params = JSON.stringify(response.users);
-  var data = JSON.parse(params);
-  
-    
   // Position in sheet
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var AUTO_users = SpreadsheetApp.setActiveSheet(ss.getSheetByName('AUTO_users'));
@@ -45,27 +33,48 @@ function downloadUsers() {
   
   // This decided where to post. Starts after header.
   var lastRow = Math.max(AUTO_users.getRange(2, 1).getLastRow(),1);
-    
+  var index = 0;
+  
+  // Run the reqeust
+  do {
+    page = AdminDirectory.Users.list({
+    customer: 'my_customer',
+    maxResults: 50,
+    orderBy: 'email',
+    pageToken: pageToken
+  });
+  
+  
+// Assemble data
+  var params = JSON.stringify(page.users);
+  var data = JSON.parse(params);
+  
   // Populate sheet
-  for(var i = 0; i < data.length; i++ )
-  {
-    // Sheet var name, get last lost + previus content, columnt. Set value based on position in JSON
-    AUTO_users.getRange(lastRow + i, 1).setValue(data[i].orgUnitPath);
-    AUTO_users.getRange(lastRow + i, 2).setValue(data[i].name.fullName);
-    AUTO_users.getRange(lastRow + i, 3).setValue(data[i].primaryEmail);
-    
-    // This data sit in an array in JSON, you have to specify all steps to get there. Put it in >> (things||"" << to post empty space if there is no data.
-    var title = (data[i] && data[i].organizations && data[i].organizations[0] && data[i].organizations[0].title)||""; AUTO_users.getRange(lastRow + i, 4).setValue(title);
-    var department = (data[i] && data[i].organizations && data[i].organizations[0] && data[i].organizations[0].department)||""; AUTO_users.getRange(lastRow + i, 5).setValue(department);
-    var phone = (data[i] && data[i].phones && data[i].phones[0] && data[i].phones[0].value)||""; AUTO_users.getRange(lastRow + i, 6).setValue(phone);
-    var manager = (data[i] && data[i].relations && data[i].relations[0] && data[i].relations[0].value)||""; AUTO_users.getRange(lastRow + i, 7).setValue(manager);
-    
-    AUTO_users.getRange(lastRow + i, 8).setValue(data[i].lastLoginTime);
-    
-    //debug >> Full answer
-   //  AUTO_users.getRange(lastRow + i, 10).setValue(params);
-
-  };
+    if (data) {
+      for(var i = 0; i < data.length; i++ ){
+        
+        // Sheet var name, get last lost + previus content, columnt. Set value based on position in JSON
+        AUTO_users.getRange(index + lastRow + i, 1).setValue(data[i].orgUnitPath);
+        AUTO_users.getRange(index + lastRow + i, 2).setValue(data[i].name.fullName);
+        AUTO_users.getRange(index + lastRow + i, 3).setValue(data[i].primaryEmail);
+        
+        // This data sit in an array in JSON, you have to specify all steps to get there. Put it in >> (things||"" << to post empty space if there is no data.
+        var title = (data[i] && data[i].organizations && data[i].organizations[0] && data[i].organizations[0].title)||""; AUTO_users.getRange(index + lastRow + i, 4).setValue(title);
+        var department = (data[i] && data[i].organizations && data[i].organizations[0] && data[i].organizations[0].department)||""; AUTO_users.getRange(index + lastRow + i, 5).setValue(department);
+        var phone = (data[i] && data[i].phones && data[i].phones[0] && data[i].phones[0].value)||""; AUTO_users.getRange(index + lastRow + i, 6).setValue(phone);
+        var manager = (data[i] && data[i].relations && data[i].relations[0] && data[i].relations[0].value)||""; AUTO_users.getRange(index + lastRow + i, 7).setValue(manager);
+        
+        AUTO_users.getRange(index + lastRow + i, 8).setValue(data[i].lastLoginTime);
+        
+        //debug >> Full answer
+        //  AUTO_users.getRange(index + lastRow + i, 10).setValue(params);
+      }
+      index += 50;
+    } else {
+      Logger.log('No users found.');
+    }
+    pageToken = page.nextPageToken;
+  } while (pageToken);
   
 // This actually posts data when it's ready.
   AUTO_users.sort(1);
@@ -86,18 +95,13 @@ function downloadGroups() {
   
   // This decided where to post. Starts after header.
   var lastRow = Math.max(AUTO_groups.getRange(2, 1).getLastRow(),1);
-  var index = 0
+  var index = 0;
   do {
     page = AdminDirectory.Groups.list({
       customer: 'my_customer',
       maxResults: 50,
       pageToken: pageToken
     });
-        Logger.log('----')
-
-    Logger.log(pageToken);
-    Logger.log(page.nextPageToken)
-        Logger.log('----')
 
     var groups = page.groups;
     if (groups) {
@@ -108,7 +112,7 @@ function downloadGroups() {
         
        // Logger.log('%s (%s)', group.name, group.email);
       }
-      index += 50
+      index += 50;
     } else {
       Logger.log('No groups found.');
     }
