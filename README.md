@@ -3,6 +3,7 @@ Those are relatively simple ready to use scripts that everyone can use just by c
 Most will have full comments explaining code blocks and prerequisites.
 
 Most assume basic knowledge about Apps Script
+[Link to example video on how to enable some things.](https://www.youtube.com/watch?v=tJ4_w2596KI)
 
 #### [Custom Functions for Google Sheets](https://github.com/Landsil/apps_script/blob/master/custom_functions.gs)
  - Adds custom menu to sheets `OnOpen`
