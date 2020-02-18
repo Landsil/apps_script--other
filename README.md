@@ -24,7 +24,7 @@ Most assume basic knowledge about Apps Script
  - Read JSON
  - Look thru data and post to sheets in rows
 ##### Get list of groups thru directory API
- - Get ulist of groups thru admin directory API
+ - Get list of groups thru admin directory API
  - Loop thru pages
  - Look thru data and post to sheets in rows
 
