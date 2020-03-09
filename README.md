@@ -33,3 +33,7 @@ Most assume basic knowledge about Apps Script
  - `PropertiesService` to access token there
  - Parse JSON
  - Loop thru data and post in rows
+ 
+ #### [Send SMS for sheet using Twilio](https://github.com/Landsil/apps_script/blob/master/twilio_api.gs)
+Mostly updated code that Twilio is showing on their page.
+Uses `PropertiesService` to access tokens there instad of puting them in code.
