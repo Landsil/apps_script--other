@@ -4,6 +4,8 @@
  * 
  */
 
+
+// Create a menu to be activate funtions
 function onOpen() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   var entries = [{
@@ -18,6 +20,7 @@ function onOpen() {
   sheet.addMenu('Twilio_API', entries);
 }
 
+// Specify all "Properties" that will hol your tokens.
 var scriptProperties = PropertiesService.getScriptProperties();
 var messages_url_prop = scriptProperties.getProperty('messages_url_prop');
 var from_prop = scriptProperties.getProperty('from_prop');
@@ -25,7 +28,7 @@ var Authorization_prop = scriptProperties.getProperty('Authorization_prop');
 
 // ******************************************************************************************
 
-
+// This function sends sms. This is the actuall work horse that makes the API call and sends it.
 function sendSms(to, body) {
   var messages_url = messages_url_prop;
 
@@ -47,6 +50,8 @@ function sendSms(to, body) {
   UrlFetchApp.fetch(messages_url, options);
 }
 
+// This will send 1 SMS per row in "SMS-send" ( that should be a name of your sheet)
+// It's just a loop using previous funcion and updating status
 function sendAll() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = SpreadsheetApp.setActiveSheet(ss.getSheetByName('SMS-send'));
@@ -68,13 +73,12 @@ function sendAll() {
   }
 }
 
-function myFunction() {
-  sendAll();
-}
+
 
 // ******************************************************************************************
 // Made Based on https://www.twilio.com/blog/2016/03/how-to-look-up-and-verify-phone-numbers-in-google-spreadsheets-with-javascript.html
 
+// Again this is actuall function doing the API call
 function lookup(phoneNumber) {
     var lookupUrl = "https://lookups.twilio.com/v1/PhoneNumbers/" + phoneNumber + "?Type=carrier"; 
 
@@ -92,6 +96,7 @@ function lookup(phoneNumber) {
     return data; 
 }
 
+// This fucntion does the processing for all rows of data.
 function lookupAll() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = SpreadsheetApp.setActiveSheet(ss.getSheetByName('number_check'));
@@ -122,8 +127,4 @@ function lookupAll() {
             }
         }
     }
-}
-
-function myFunction() {
-    lookupAll(); 
 }
