@@ -1,3 +1,16 @@
+// ***********************************************************************************************************
+function onOpen() {
+  //add a toolbar and list the functions you want to call externally
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var menuEntries = [];
+  menuEntries.push({name: 'Set All Signatures', functionName: 'setAllSignatures'});
+  menuEntries.push({name: 'Set Individual Signature', functionName: 'setIndividualSignature'});
+  menuEntries.push({name: 'Get Signature', functionName: 'getSignature'});
+  ss.addMenu('Signatures', menuEntries);
+}
+
+
+// ***********************************************************************************************************
 function getSignature() {
   //pretty basic function for testing
   if ( startupChecks()) { return; }
@@ -10,6 +23,8 @@ function getSignature() {
   Browser.msgBox(result.getContentText());
 }
 
+
+// ***********************************************************************************************************
 function setIndividualSignature() {
   Logger.log('[%s]\t Starting setIndividualSignature run', Date());
   if ( startupChecks()) { return; }
@@ -26,6 +41,7 @@ function setIndividualSignature() {
   Logger.log('[%s]\t Completed setIndividualSignature run', Date());
 }
 
+// ***********************************************************************************************************
 function setAllSignatures() {
   Logger.log('[%s]\t Starting setAllSignatures run', Date());
   if ( startupChecks()) { return; }
@@ -40,6 +56,7 @@ function setAllSignatures() {
   Logger.log('[%s]\t Completed setAllSignatures run', Date());
 }
 
+// ***********************************************************************************************************
 function getTemplate(){
   Logger.log('[%s]\t Getting Template', Date());
   var settings = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Signature Settings');
@@ -51,6 +68,8 @@ function getTemplate(){
   return template;
 }
 
+
+// ***********************************************************************************************************
 function setSignature(template, userData, row){
     var groupData = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Signature Group Settings'); 
     
@@ -82,6 +101,8 @@ function setSignature(template, userData, row){
     Logger.log('[%s]\t Processing complete for user %s',Date(),email);
 }
 
+
+// ***********************************************************************************************************
 function substituteVariablesFromRow(text, sheet, row) {
   //Generating two lists avoids the need to do lots of individual calls to the sheet
   var tags = sheet.getSheetValues(1, 1, 1, sheet.getLastColumn())[0];
@@ -92,6 +113,8 @@ function substituteVariablesFromRow(text, sheet, row) {
   return text;
 }
 
+
+// ***********************************************************************************************************
 function substituteGroupVariables(text, dataSheet, lookupSheet, row) {
   //this function is still not great but at least it makes use of getSheet
   var tags = dataSheet.getSheetValues(1, 1, 1, dataSheet.getLastColumn())[0];
@@ -120,6 +143,8 @@ function substituteGroupVariables(text, dataSheet, lookupSheet, row) {
   return text;
 }
 
+
+// ***********************************************************************************************************
 function sanitize(text){
   var invalid = ["[","^","$",".","|","?","*","+","(",")"];
   for(m=0;m<invalid.length;m++){
@@ -129,6 +154,8 @@ function sanitize(text){
 }
 
 
+
+// ***********************************************************************************************************
 function tagReplace(tag, value, text){
   var regOpen = sanitize(UserProperties.getProperty('regOpen'));
   var tagOpen = sanitize(UserProperties.getProperty('tagOpen'));
@@ -149,6 +176,11 @@ function tagReplace(tag, value, text){
   return text;
 }
 
+
+
+
+
+// ***********************************************************************************************************
 function sendSignature(email, signature) {
   // https://developers.google.com/google-apps/email-settings/#updating_a_signature
   var requestData = {
@@ -163,6 +195,10 @@ function sendSignature(email, signature) {
   }
 }
 
+
+
+
+// ***********************************************************************************************************
 function checkUserIsValid(user){
   var userList = UserManager.getAllUsers();
   for ( u=0 ; u < userList.length ; u++ ) {
@@ -171,6 +207,9 @@ function checkUserIsValid(user){
   return false;
 }
 
+
+
+// ***********************************************************************************************************
 function getPayload(signature) {
   //First line is needed for XML, second isn't but we might as well do it for consistency
   signature = signature.replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -183,6 +222,9 @@ function getPayload(signature) {
   return xml;
 }
 
+
+
+// ***********************************************************************************************************
 function authorisedUrlFetch(email, requestData) {
   //takes request data and wraps oauth authentication around it before sending out the request
   // https://developers.google.com/apps-script/class_oauthconfig
@@ -216,16 +258,9 @@ function authorisedUrlFetch(email, requestData) {
   return result;
 }
 
-function onOpen() {
-  //add a toolbar and list the functions you want to call externally
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var menuEntries = [];
-  menuEntries.push({name: 'Set All Signatures', functionName: 'setAllSignatures'});
-  menuEntries.push({name: 'Set Individual Signature', functionName: 'setIndividualSignature'});
-  menuEntries.push({name: 'Get Signature', functionName: 'getSignature'});
-  ss.addMenu('Signatures', menuEntries);
-}
 
+
+// ***********************************************************************************************************
 function startupChecks() {
   //Check that everything that is needed to run is there
   //I don't check that any of it makes sense, just that it exists.
