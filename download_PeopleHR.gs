@@ -50,7 +50,7 @@ function downloadPeopleHR() {
   var AUTO_HRdata = SpreadsheetApp.setActiveSheet(ss.getSheetByName('AUTO_HRdata'));
   
   // Clear content except header all the way to "K" column. TODO make it find cells with content and cleare those.
-  AUTO_HRdata.getRange('A2:K').clear();
+  AUTO_HRdata.getRange('A2:M').clear();
   
   // This decided where to post. Starts after header.
   var lastRow = Math.max(AUTO_HRdata.getRange(2, 1).getLastRow(),1);
@@ -66,13 +66,12 @@ function downloadPeopleHR() {
     var Department = (data[i] && data[i].Department && data[i].Department && data[i].Department.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 5).setValue(Department);
     var ReportsToEmailAddress = (data[i] && data[i].ReportsToEmailAddress && data[i].ReportsToEmailAddress && data[i].ReportsToEmailAddress.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 6).setValue(ReportsToEmailAddress);
     var PersonalPhoneNumber = (data[i] && data[i].ContactDetail && data[i].ContactDetail.PersonalPhoneNumber && data[i].ContactDetail.PersonalPhoneNumber.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 7).setValue(PersonalPhoneNumber);
-    var StartDate = (data[i] && data[i].StartDate && data[i].StartDate && data[i].StartDate.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 8).setValue(StartDate);
-    var DateOfBirth = (data[i] && data[i].DateOfBirth && data[i].DateOfBirth && data[i].DateOfBirth.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 9).setValue(DateOfBirth);
-    var EmployeeId = (data[i] && data[i].EmployeeId && data[i].EmployeeId && data[i].EmployeeId.DisplayValue)||"?"; AUTO_HRdata.getRange(lastRow + i, 10).setValue(EmployeeId);
-    
-    
-    //debug >> Full answer
-    //AUTO_HRdata.getRange(lastRow + i, 15).setValue(data);
+    var PersonalEmail = (data[i] && data[i].ContactDetail && data[i].ContactDetail.PersonalEmail && data[i].ContactDetail.PersonalEmail.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 8).setValue(PersonalEmail);
+    var KnownAs = (data[i] && data[i].KnownAs && data[i].KnownAs && data[i].KnownAs.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 9).setValue(KnownAs);
+    var StartDate = (data[i] && data[i].StartDate && data[i].StartDate && data[i].StartDate.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 10).setValue(StartDate);
+    var LeavingDate = (data[i] && data[i].LeavingDate && data[i].LeavingDate && data[i].LeavingDate.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 11).setValue(LeavingDate);
+    var DateOfBirth = (data[i] && data[i].DateOfBirth && data[i].DateOfBirth && data[i].DateOfBirth.DisplayValue)||""; AUTO_HRdata.getRange(lastRow + i, 12).setValue(DateOfBirth);
+    var EmployeeId = (data[i] && data[i].EmployeeId && data[i].EmployeeId && data[i].EmployeeId.DisplayValue)||"?"; AUTO_HRdata.getRange(lastRow + i, 13).setValue(EmployeeId);
 
   }
   
