@@ -23,6 +23,10 @@ Most assume basic knowledge about Apps Script
  - Get user data thru admin directory API
  - Read JSON
  - Look thru data and post to sheets in rows
+##### Get ChromeOS data thru Admin directory API
+ - Get device data thru admin directory API
+ - Read JSON
+ - Look thru data and post to sheets in rows
 ##### Get list of groups thru directory API
  - Get list of groups thru admin directory API
  - Loop thru pages
