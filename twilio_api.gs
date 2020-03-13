@@ -20,11 +20,15 @@ function onOpen() {
   sheet.addMenu('Twilio_API', entries);
 }
 
-// Specify all "Properties" that will hol your tokens.
+
+// Specify all "Properties" that will hold your tokens.
 var scriptProperties = PropertiesService.getScriptProperties();
 var messages_url_prop = scriptProperties.getProperty('messages_url_prop');
-var from_prop = scriptProperties.getProperty('from_prop');
+var from_number_prop = scriptProperties.getProperty('from_number_prop');
 var Authorization_prop = scriptProperties.getProperty('Authorization_prop');
+
+// Testing bit for https://www.twilio.com/docs/sms/services#alphanumeric-sender-id
+var service_SID_prop = scriptProperties.getProperty('service_SID_prop');  // From https://www.twilio.com/console/sms/services 
 
 // ******************************************************************************************
 
@@ -35,7 +39,8 @@ function sendSms(to, body) {
   var payload = {
     "To": to,
     "Body" : body,
-    "From" : from_prop
+  //  "From" : from_number_prop,   unless you are actually using it
+    "MessagingServiceSid" : service_SID_prop   //  Coment out if you aren't using it.
   };
 
   var options = {
