@@ -76,6 +76,8 @@ function downloadChromeOS() {
         var status = (data[i] && data[i].status)||""; AUTO_ChromeOS.getRange(index + lastRow + i, 14).setValue(status);
         var supportEndDate = (data[i] && data[i].supportEndDate)||""; AUTO_ChromeOS.getRange(index + lastRow + i, 15).setValue(supportEndDate);
         var lastSync = (data[i] && data[i].lastSync)||""; AUTO_ChromeOS.getRange(index + lastRow + i, 16).setValue(lastSync);
+        var macAddress = (data[i] && data[i].macAddress)||""; AUTO_ChromeOS.getRange(index + lastRow + i, 17).setValue(macAddress);
+        var ethernetMacAddress = (data[i] && data[i].ethernetMacAddress)||""; AUTO_ChromeOS.getRange(index + lastRow + i, 18).setValue(ethernetMacAddress);
         
         
         //debug >> Full answer
