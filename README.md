@@ -6,6 +6,10 @@ Most assume basic knowledge about Apps Script
 
 [Link to example video on how to enable some things.](https://www.youtube.com/watch?v=tJ4_w2596KI)
 
+
+## Some of this code is slowly moving into dedicated repositories, links here will be updated and code removed.
+
+
 #### 1. [Custom Functions for Google Sheets](https://github.com/Landsil/apps_script/blob/master/custom_functions.gs)
  - Adds custom menu to sheets `OnOpen`
  - Add different SHA function with instructions and description
