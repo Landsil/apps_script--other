@@ -20,29 +20,9 @@ Most assume basic knowledge about Apps Script
  - Receive Webhook stream
  - Simple JSON manipulation
  - Find first empty row and add data to correct cells
-
-#### 3. [Different G Suite things with google API](https://github.com/Landsil/apps_script/blob/master/google_api.gs)
- - Adds menu `onOpen`
  
-##### Get user data thru Admin directory API
- - Get user data thru admin directory API
- - Read JSON
- - Look thru data and post to sheets in rows
-##### Get ChromeOS data thru Admin directory API
- - Get device data thru admin directory API
- - Read JSON
- - Look thru data and post to sheets in rows
-##### Get list of groups thru directory API
- - Get list of groups thru admin directory API
- - Loop thru pages
- - Look thru data and post to sheets in rows
-
-#### 4. [Pull employee data from peopleHR](https://github.com/Landsil/apps_script/blob/master/download_PeopleHR.gs)
- - Adds menu `onOpen`
- - `PropertiesService` to access token there
- - Parse JSON
- - Loop thru data and post in rows
- 
- #### 5. [Send SMS for sheet using Twilio](https://github.com/Landsil/apps_script/blob/master/twilio_api.gs)
+ #### 3. [Send SMS for sheet using Twilio](https://github.com/Landsil/apps_script/blob/master/twilio_api.gs)
 Mostly updated code that Twilio is showing on their page.
 Uses `PropertiesService` to access tokens there instad of puting them in code.
+
+ #### 4. [Generate Google Workspace chrome polict for uBlockOrygin](https://github.com/Landsil/apps_script--other/blob/master/uBlockOrigin.gs)
