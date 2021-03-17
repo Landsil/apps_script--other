@@ -21,7 +21,7 @@ Most assume basic knowledge about Apps Script
  - Simple JSON manipulation
  - Find first empty row and add data to correct cells
  
- #### 3. [Send SMS for sheet using Twilio](https://github.com/Landsil/apps_script/blob/master/twilio_api.gs)
+ #### 3. [Send SMS from sheets using Twilio](https://github.com/Landsil/apps_script/blob/master/twilio_api.gs)
 Mostly updated code that Twilio is showing on their page.
 Uses `PropertiesService` to access tokens there instad of puting them in code.
 
