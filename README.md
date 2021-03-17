@@ -8,6 +8,7 @@ Most assume basic knowledge about Apps Script
 
 
 ## Some of this code is slowly moving into dedicated repositories, links here will be updated and code removed.
+You can see all of those under [apps-script--](https://github.com/Landsil?tab=repositories&q=apps_script--)
 
 
 #### 1. [Custom Functions for Google Sheets](https://github.com/Landsil/apps_script/blob/master/custom_functions.gs)
