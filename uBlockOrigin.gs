@@ -8,6 +8,8 @@
  * 3. Use new manu called "uBlock" --> Create Template
  * 4. You will be asked to give access to script
  * 5. In the template sheet add your websites to column "A" under "Websites" and use uBlock --> Generate JSON
+ *
+ *  Output can be pasted here: https://admin.google.com/ac/chrome/apps/user?f=ID.cjpalhdlnbpafiamejdnhcphjbkeiagm
  */ 
 
 //************************************************************************************************************************************
