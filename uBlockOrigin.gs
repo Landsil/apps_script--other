@@ -3,7 +3,7 @@
 // http://raymondhill.net/ublock/adminSetting.html
 
 
-/* 1. Save the script ( this one is self supporting at the moment, doesn't require main.gs from repository https://github.com/Landsil/apps_script--GSuite_API )
+/* 1. Save the script
  * 2. Refresh Sheet
  * 3. Use new manu called "uBlock" --> Create Template
  * 4. You will be asked to give access to script
