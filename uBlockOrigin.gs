@@ -10,6 +10,7 @@
  * 5. In the template sheet add your websites to column "A" under "Websites" and use uBlock --> Generate JSON
  *
  *  Output can be pasted here: https://admin.google.com/ac/chrome/apps/user?f=ID.cjpalhdlnbpafiamejdnhcphjbkeiagm
+ *  Note that you have to re-load extention / chrome for it to load a new policy.
  */ 
 
 //************************************************************************************************************************************
