@@ -30,4 +30,4 @@ Uses `PropertiesService` to access tokens there instad of puting them in code.
 
  #### 5. [Main Merge for Google doc's](https://github.com/Landsil/apps_script--other/blob/master/mail_merge.gs)
  - Works exacly as you would expecy.
- - NOTE - I'm 909% sure this code it based mostly on someone's else script with some features added by me but I can't find it anymore. If it was yours please let me know so I can credit you properly.
+ - NOTE - I'm 99% sure this code it based mostly on someone's else script with some features added by me but I can't find it anymore. If it was yours please let me know so I can credit you properly.
