@@ -1,7 +1,7 @@
 /***************************
 This script provides a Mail Marge feature by merging values in google sheet into google doc
  
-You can add this script to any spreadshit, please make sure 1st row has header names you will be referncing in your google doc.
+You can add this script to any spreadsheet, please make sure 1st row has header names you will be referncing in your google doc.
 eg. header1 and header2 can be referenced in doc as
 ex: "Hi, [header1], you now have [header2] left"
 
