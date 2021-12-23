@@ -25,7 +25,6 @@ function doMerge() {
     
   var templateFile = DriveApp.getFileById(selectedTemplateId);
   var mergedFile = templateFile.makeCopy();  // We will be making a new file to preserve template.
-  Date.UTC.
   mergedFile.setName("done_"+date+"_"+templateFile.getName());// new file's name
   var mergedDoc = DocumentApp.openById(mergedFile.getId());
   var bodyElement = mergedDoc.getBody();// find text we work with
