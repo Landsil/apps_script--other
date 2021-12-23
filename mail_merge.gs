@@ -1,7 +1,7 @@
 /***************************
 This script provides a Mail Marge feature by merging values in google sheet into google doc
  
-You can add this script to any spreadsheet, please make sure 1st row has header names you will be referncing in your google doc.
+You can add this script to any spreadshit, please make sure 1st row has header names you will be referncing in your google doc.
 eg. header1 and header2 can be referenced in doc as
 ex: "Hi, [header1], you now have [header2] left"
 
@@ -22,10 +22,11 @@ function doMerge() {
 
   timezone = "GMT+" + new Date().getTimezoneOffset()/60
   var date = Utilities.formatDate(new Date(), timezone, "dd-MM-yyyy HH:mm"); // "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    
+
   var templateFile = DriveApp.getFileById(selectedTemplateId);
   var mergedFile = templateFile.makeCopy();  // We will be making a new file to preserve template.
-  mergedFile.setName("done_"+date+"_"+templateFile.getName());// new file's name
+
+  mergedFile.setName(date+" "+templateFile.getName()+"_done");// new file's name
   var mergedDoc = DocumentApp.openById(mergedFile.getId());
   var bodyElement = mergedDoc.getBody();// find text we work with
   var bodyCopy = bodyElement.copy();// make a cope
