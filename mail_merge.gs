@@ -5,7 +5,7 @@ You can add this script to any spreadshit, please make sure 1st row has header n
 eg. header1 and header2 can be referenced in doc as
 ex: "Hi, [header1], you now have [header2] left"
 
-*/  
+*/
 
 
 // We will store docID to be able to use it multiple times
@@ -20,13 +20,13 @@ function doMerge() {
   var idFromLink = docLink.match(regex);
   var selectedTemplateId = idFromLink;
 
-  timezone = "GMT+" + new Date().getTimezoneOffset()/60
+  timezone = "GMT+" + new Date().getTimezoneOffset() / 60
   var date = Utilities.formatDate(new Date(), timezone, "dd-MM-yyyy HH:mm"); // "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
   var templateFile = DriveApp.getFileById(selectedTemplateId);
   var mergedFile = templateFile.makeCopy();  // We will be making a new file to preserve template.
 
-  mergedFile.setName(date+" "+templateFile.getName()+"_done");// new file's name
+  mergedFile.setName(date + " " + templateFile.getName() + "_done");// new file's name
   var mergedDoc = DocumentApp.openById(mergedFile.getId());
   var bodyElement = mergedDoc.getBody();// find text we work with
   var bodyCopy = bodyElement.copy();// make a cope
@@ -39,17 +39,28 @@ function doMerge() {
   var numRows = rows.getNumRows();
   var values = rows.getValues();
   var fieldNames = values[0];//First row of the sheet must be the the field names
+  var changeIndex = 0
 
-  for (var i = 1; i < numRows; i++) {//data values start from the second row of the sheet
+  for (var i = 1; i < numRows; i++) {    //data values start from the second row of the sheet
     var row = values[i];
     var body = bodyCopy.copy();
-    
+    changeIndex++;
+    // console.log(changeIndex)      // Uncoment this to see at what number script crashes
+
+// This will ensure doc "reset" everyone 50 changes to make sure we are within edit limit. Adjust this number down if your document is very long.
+    if (changeIndex == 50) {
+      mergedDoc.saveAndClose();
+      // reopen the doc and refresh the selection
+      var mergedDoc = DocumentApp.openById(mergedFile.getId());
+      changeIndex = 0
+    }
+
     for (var f = 0; f < fieldNames.length; f++) {
       body.replaceText("\\[" + fieldNames[f] + "\\]", row[f]);//replace [fieldName] with the respective data value
     }
-    
+
     var numChildren = body.getNumChildren();//number of the contents in the template doc
-    
+
     for (var c = 0; c < numChildren; c++) {//Go over all the content of the template doc, and replicate it for each row of the data.
       var child = body.getChild(c);
       child = child.copy();
@@ -64,10 +75,10 @@ function doMerge() {
       } else if (child.getType() == DocumentApp.ElementType.TABLE) {
         mergedDoc.appendTable(child);
       } else {
-        Logger.log("Unknown element type: " + child);
+        console.log("Unknown element type: " + child);
       }
     }
-    
+
     mergedDoc.appendPageBreak();//Appending page break. Each row will be merged into a new page.
 
   }
@@ -83,13 +94,13 @@ function getTemplate() {
   // Process the user's response.
   if (response.getSelectedButton() == ui.Button.YES) {
     var docLink = response.getResponseText();
-    scriptProperties.setProperty("docLink",docLink); // Save for future.
+    scriptProperties.setProperty("docLink", docLink); // Save for future.
 
-    } else if (response.getSelectedButton() == ui.Button.NO) {
-      Logger.log('No URL provided');
-      } else {
-        Logger.log('Window was closed.');
-      }
+  } else if (response.getSelectedButton() == ui.Button.NO) {
+    Logger.log('No URL provided');
+  } else {
+    Logger.log('Window was closed.');
+  }
 }
 
 /**********************************************************************************
@@ -98,13 +109,13 @@ This code adds user facing menu that should be used by them to operate this scri
 function onOpen() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var entries = [
-  {
-    name : "Link template",
-    functionName : "getTemplate"
-  },
-  {
-    name : "Fill template",
-    functionName : "doMerge"
-  }];
+    {
+      name: "Link template",
+      functionName: "getTemplate"
+    },
+    {
+      name: "Fill template",
+      functionName: "doMerge"
+    }];
   spreadsheet.addMenu("Merge", entries);
 }
